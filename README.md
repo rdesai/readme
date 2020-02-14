@@ -3,7 +3,7 @@ The utility that does rule-based validation checks
 # Eample
 
 ###### `ruleSet.js`
-Refer [ruleSet](#ruleSet) for [`fields`](#ruleSetFields) and [`rules`](#ruleSetrules)
+Refer [ruleSet](#ruleSet) for [`fields`](#ruleSet--fields) and [`rules`](#ruleSet--rules)
 ```js
 module.exports = ruleSet = {
     fields: {
@@ -90,7 +90,7 @@ ruleSet has [`rules`](#ruleSetrules) to validate incoming data, and will return 
 - `name`: The unique name for the rule
 - `fields`: List of fields that the rule will be applied to
 - `required` (optional): If the values of the fields are mandatory
-- `validators`: List of validators used to validate the fields
+- [`validators`](#ruleSet--rules--Validators): List of validators used to validate the fields
 - `error` (optional): The error message that will be returned when the rule fails for a field
 
 ### ruleSet > rules > Validators
@@ -98,7 +98,7 @@ Validators are used to determine if the fields pertaining to a rule are valid.
 Validity checks may include
 - `values`: expects the value of the field to be from a list of values
 - `regex`: expects the value of the field to be suffice the regular expression(s) provided
-- `fn`: a custom function to evaluate if the field is valid or not
+- [`fn`](#ruleSet--rules--Validators--fn): a custom function to evaluate if the field is valid or not
 
 #### ruleSet > rules > Validators > fn
 This custom function will be called for each field in the rule
@@ -110,7 +110,7 @@ This custom function will be called for each field in the rule
 - `data`: the original input
 - `rule`: the rule object that this custom function belongs to
 
-## ruleSet > Fields
+## ruleSet > fields
 A mapping of fields in case the data coming in isn't a flat object. The fields in `ruleSet > rules > fields` will use this mapping when provided (defaults to `data.fieldName`)
 ```js
 {
