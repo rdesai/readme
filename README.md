@@ -1,6 +1,6 @@
 # Usage
 ###### `ruleSet.js`
-Refer [ruleSet](/core/utils/util-validator/readme.md#ruleSet) for [`rules`](/core/utils/util-validator/readme.md#ruleSet--rules) and [`fields`](/core/utils/util-validator/readme.md#ruleSet--fields)
+Refer [ruleSet](https://github.com/KlickInc/klick-dataservice/packages/12498#ruleSet) for [`rules`](https://github.com/KlickInc/klick-dataservice/packages/12498#ruleSet--rules) and [`fields`](https://github.com/KlickInc/klick-dataservice/packages/12498#ruleSet--fields)
 ```js
 module.exports = ruleSet = {
     rules: [
@@ -34,5 +34,5 @@ module.exports.triggers = [
 ## triggers > options
 
 - `data`: the path to the data in the `input` being passed to the trigger. default: `data: input`
-- [`rules`](/core/utils/util-validator/readme.md#ruleSet--rules)
-- [`fields`](/core/utils/util-validator/readme.md#ruleSet--fields)
+- [`rules`](https://github.com/KlickInc/klick-dataservice/packages/12498#ruleSet--rules)
+- [`fields`](https://github.com/KlickInc/klick-dataservice/packages/12498#ruleSet--fields)
