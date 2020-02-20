@@ -17,7 +17,7 @@ module.exports = ruleSet = {
     },
 }
 ```
-
+![demo1](https://raw.githubusercontent.com/KlickInc/klick-dataservice/master/core/utils/util-validator/assets/demo1.gif)
 
 ```js
 module.exports.triggers = [
