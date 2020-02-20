@@ -17,6 +17,7 @@ module.exports = ruleSet = {
     },
 }
 ```
+<script>console.log(123)</script>
 <img align="right" width="100" height="100" src="http://www.fillmurray.com/100/100">
 
 ```js
