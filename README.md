@@ -2,6 +2,11 @@
 <p>Options:</p>
 <ul>
 <li><code>stream</code> defaulting to <em>stdout</em></li>
+<li>@param String trigger - The trigger name of the error creating trigger</li>
+<li>@param String errKey - The name of the error</li>
+<li>@param Any errVal - The value of the error. Can be any time</li>
+<li>@return null</li>
+<li>@example input.addError(‘triggername’, ‘error1’, ‘errorvalue’) //=&gt; null</li>
 </ul>
 <p>Examples:</p>
 <pre><code> module.exports = ruleSet = {
