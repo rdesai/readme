@@ -14,8 +14,14 @@ Options:
 
   - `stream` defaulting to _stdout_
   
-<style>.red { color: red }</style>
-<span class="red" style="color: blue">Test</span>
+  
+
+<details>
+  <summary>Copyright 1999-2018.</summary>
+  <p> - by Refsnes Data. All Rights Reserved.</p>
+  <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+</details>
+
 
 ##### Parameters
 
