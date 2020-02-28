@@ -13,9 +13,9 @@ Refer [ruleSet](#ruleSet) for [`rules`](#ruleSet--rules) and [`fields`](#ruleSet
 Options:
 
   - `stream` defaulting to _stdout_
-
-
-
+  
+<style>.red { color: red }</style>
+<span class="red" style="color: blue">Test</span>
 
 ##### Parameters
 
