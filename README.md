@@ -2,8 +2,7 @@
 
 <dl>
 <dt><a href="#module_index">index</a></dt>
-<dd><p>Validation</p>
-</dd>
+<dd></dd>
 <dt><a href="#module_jsdoc-api">jsdoc-api</a></dt>
 <dd></dd>
 </dl>
@@ -11,9 +10,9 @@
 <a name="module_index"></a>
 
 ## index
-Validation
+**Sig**: ([rules], {data}, [fields={}]) => error
 
-**Sig**: ([rules], {data}, [fields={}]) => error  
+Validation  
 
 | Param | Type | Default |
 | --- | --- | --- |
