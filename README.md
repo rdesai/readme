@@ -13,12 +13,13 @@
 ## index
 Validation
 
+**Sig**: ([rules], {data}, [fields={}]) => error  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | rules | <code>Array</code> |  | 
 | data | <code>Object</code> |  | 
-| [fields] | <code>Object</code> | <code>{}</code> | 
+| fields | <code>Object</code> | <code>{}</code> | 
 
 <a name="module_jsdoc-api"></a>
 
