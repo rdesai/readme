@@ -1,211 +1,75 @@
-## Modules
+<a name="module_validate"></a>
 
-<dl>
-<dt><a href="#module_index">index</a></dt>
-<dd></dd>
-<dt><a href="#module_jsdoc-api">jsdoc-api</a></dt>
-<dd></dd>
-</dl>
+## validate
+Utility to do rule-based validation checks
 
-<a name="module_index"></a>
 
-## index
-**Sig**: ([rules], {data}, [fields={}]) => error
-
-Validation  
-
-| Param | Type | Default |
-| --- | --- | --- |
-| rules | <code>Array</code> |  | 
-| data | <code>Object</code> |  | 
-| fields | <code>Object</code> | <code>{}</code> | 
-
-<a name="module_jsdoc-api"></a>
-
-## jsdoc-api
-
-* [jsdoc-api](#module_jsdoc-api)
-    * _static_
-        * [.cache](#module_jsdoc-api.cache) : [<code>cache-point</code>](https://github.com/75lb/cache-point)
-        * [.explainSync([options])](#module_jsdoc-api.explainSync) ⇒ <code>Array.&lt;object&gt;</code>
-        * [.explain([options])](#module_jsdoc-api.explain) ⇒ <code>Promise</code>
-        * [.renderSync([options])](#module_jsdoc-api.renderSync)
-    * _inner_
-        * [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
-            * [.files](#module_jsdoc-api..JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-            * [.source](#module_jsdoc-api..JsdocOptions+source) : <code>string</code>
-            * [.cache](#module_jsdoc-api..JsdocOptions+cache) : <code>boolean</code>
-            * [.access](#module_jsdoc-api..JsdocOptions+access) : <code>string</code>
-            * [.configure](#module_jsdoc-api..JsdocOptions+configure) : <code>string</code>
-            * [.destination](#module_jsdoc-api..JsdocOptions+destination) : <code>string</code>
-            * [.encoding](#module_jsdoc-api..JsdocOptions+encoding) : <code>string</code>
-            * [.private](#module_jsdoc-api..JsdocOptions+private) : <code>boolean</code>
-            * [.package](#module_jsdoc-api..JsdocOptions+package) : <code>string</code>
-            * [.pedantic](#module_jsdoc-api..JsdocOptions+pedantic) : <code>boolean</code>
-            * [.query](#module_jsdoc-api..JsdocOptions+query) : <code>string</code>
-            * [.recurse](#module_jsdoc-api..JsdocOptions+recurse) : <code>boolean</code>
-            * [.readme](#module_jsdoc-api..JsdocOptions+readme) : <code>string</code>
-            * [.template](#module_jsdoc-api..JsdocOptions+template) : <code>string</code>
-            * [.tutorials](#module_jsdoc-api..JsdocOptions+tutorials) : <code>string</code>
-
-<a name="module_jsdoc-api.cache"></a>
-
-### jsdoc.cache : [<code>cache-point</code>](https://github.com/75lb/cache-point)
-The [cache-point](https://github.com/75lb/cache-point) instance used when `cache: true` is specified on `.explain()` or `.explainSync()`.
-
-**Kind**: static property of [<code>jsdoc-api</code>](#module_jsdoc-api)  
-<a name="module_jsdoc-api.explainSync"></a>
-
-### jsdoc.explainSync([options]) ⇒ <code>Array.&lt;object&gt;</code>
-Returns jsdoc explain output.
-
-**Kind**: static method of [<code>jsdoc-api</code>](#module_jsdoc-api)  
-**Prerequisite**: Requires node v0.12 or above  
-
-| Param | Type |
-| --- | --- |
-| [options] | [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions) | 
-
-<a name="module_jsdoc-api.explain"></a>
-
-### jsdoc.explain([options]) ⇒ <code>Promise</code>
-Returns a promise for the jsdoc explain output.
-
-**Kind**: static method of [<code>jsdoc-api</code>](#module_jsdoc-api)  
-**Fulfil**: <code>object[]</code> - jsdoc explain output  
-
-| Param | Type |
-| --- | --- |
-| [options] | [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions) | 
-
-<a name="module_jsdoc-api.renderSync"></a>
-
-### jsdoc.renderSync([options])
-Render jsdoc documentation.
-
-**Kind**: static method of [<code>jsdoc-api</code>](#module_jsdoc-api)  
-**Prerequisite**: Requires node v0.12 or above  
-
-| Param | Type |
-| --- | --- |
-| [options] | [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions) | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| rules | <code>Array</code> |  | [rules] {module:validate~rules} |
+| data | <code>Object</code> |  | JSON data to be validated |
+| fields | <code>Object</code> | <code>{}</code> | Map of fields if the `data` isn't a flat object |
 
 **Example**  
 ```js
-jsdoc.renderSync({ files: 'lib/*', destination: 'api-docs' })
+{
+    rules: [{
+        name: 'Required',
+        fields: ['firstname', 'lastname', 'email', 'specialty', 'term-of-use'],
+        required: true,
+    }, {
+        name: 'Name',
+        fields: ['firstname', 'lastname'],
+        validators: [/^[^\d]*$/],
+    }, {
+        name: 'Contact',
+        fields: ['email'],
+        validators: [/^(([0-9a-zA-Z])+([-._'+&]))*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/],
+    }, {
+        name: 'Specialty',
+        fields: ['specialty'],
+        validators: [['Rheumatologist', 'Cardiologist', 'Pulminologist', 'Gastroenterologist', 'Primary Care', 'NP/PA', 'Other']],
+    }, {
+        name: 'Agreement',
+        fields: ['term-of-use'],
+        validators: [true],
+    }],
+    fields: {
+        firstname: ['name', 'firstname'],
+        lastname: ['name', 'lastname']
+    },
+}
 ```
-<a name="module_jsdoc-api..JsdocOptions"></a>
 
-### jsdoc-api~JsdocOptions
-The jsdoc options, common for all operations.
+* [validate](#module_validate)
+    * [~rules](#module_validate..rules)
+        * [new rules(name, fields, required, [validators])](#new_module_validate..rules_new)
 
-**Kind**: inner class of [<code>jsdoc-api</code>](#module_jsdoc-api)  
+<a name="module_validate..rules"></a>
 
-* [~JsdocOptions](#module_jsdoc-api..JsdocOptions)
-    * [.files](#module_jsdoc-api..JsdocOptions+files) : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-    * [.source](#module_jsdoc-api..JsdocOptions+source) : <code>string</code>
-    * [.cache](#module_jsdoc-api..JsdocOptions+cache) : <code>boolean</code>
-    * [.access](#module_jsdoc-api..JsdocOptions+access) : <code>string</code>
-    * [.configure](#module_jsdoc-api..JsdocOptions+configure) : <code>string</code>
-    * [.destination](#module_jsdoc-api..JsdocOptions+destination) : <code>string</code>
-    * [.encoding](#module_jsdoc-api..JsdocOptions+encoding) : <code>string</code>
-    * [.private](#module_jsdoc-api..JsdocOptions+private) : <code>boolean</code>
-    * [.package](#module_jsdoc-api..JsdocOptions+package) : <code>string</code>
-    * [.pedantic](#module_jsdoc-api..JsdocOptions+pedantic) : <code>boolean</code>
-    * [.query](#module_jsdoc-api..JsdocOptions+query) : <code>string</code>
-    * [.recurse](#module_jsdoc-api..JsdocOptions+recurse) : <code>boolean</code>
-    * [.readme](#module_jsdoc-api..JsdocOptions+readme) : <code>string</code>
-    * [.template](#module_jsdoc-api..JsdocOptions+template) : <code>string</code>
-    * [.tutorials](#module_jsdoc-api..JsdocOptions+tutorials) : <code>string</code>
+### validate~rules
+Rules are set of validators used to determine validaity of the data
 
-<a name="module_jsdoc-api..JsdocOptions+files"></a>
+**Kind**: inner class of [<code>validate</code>](#module_validate)  
+**Typicalame**: rules  
+<a name="new_module_validate..rules_new"></a>
 
-#### options.files : <code>string</code> \| <code>Array.&lt;string&gt;</code>
-One or more filenames to process. Either this or `source` must be supplied.
+#### new rules(name, fields, required, [validators])
 
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+source"></a>
+| Param | Description |
+| --- | --- |
+| name | The unique name for the rule |
+| fields | List of fields that the rule will be applied to |
+| required | (optional)                         If the values of the fields are mandatory |
+| [validators] | (optional if `required: true`) List of validators used to validate the fields |
 
-#### options.source : <code>string</code>
-A string containing source code to process. Either this or `files` must be supplied.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+cache"></a>
-
-#### options.cache : <code>boolean</code>
-Set to `true` to cache the output - future invocations with the same input will return immediately.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+access"></a>
-
-#### options.access : <code>string</code>
-Only display symbols with the given access: "public", "protected", "private" or "undefined", or "all" for all access levels. Default: all except "private".
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+configure"></a>
-
-#### options.configure : <code>string</code>
-The path to the configuration file. Default: path/to/jsdoc/conf.json.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+destination"></a>
-
-#### options.destination : <code>string</code>
-The path to the output folder. Use "console" to dump data to the console. Default: ./out/.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+encoding"></a>
-
-#### options.encoding : <code>string</code>
-Assume this encoding when reading all source files. Default: utf8.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+private"></a>
-
-#### options.private : <code>boolean</code>
-Display symbols marked with the @private tag. Equivalent to "--access all". Default: false.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+package"></a>
-
-#### options.package : <code>string</code>
-The path to the project's package file. Default: path/to/sourcefiles/package.json
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+pedantic"></a>
-
-#### options.pedantic : <code>boolean</code>
-Treat errors as fatal errors, and treat warnings as errors. Default: false.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+query"></a>
-
-#### options.query : <code>string</code>
-A query string to parse and store in jsdoc.env.opts.query. Example: foo=bar&baz=true.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+recurse"></a>
-
-#### options.recurse : <code>boolean</code>
-Recurse into subdirectories when scanning for source files and tutorials.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+readme"></a>
-
-#### options.readme : <code>string</code>
-The path to the project's README file. Default: path/to/sourcefiles/README.md.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+template"></a>
-
-#### options.template : <code>string</code>
-The path to the template to use. Default: path/to/jsdoc/templates/default.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
-<a name="module_jsdoc-api..JsdocOptions+tutorials"></a>
-
-#### options.tutorials : <code>string</code>
-Directory in which JSDoc should search for tutorials.
-
-**Kind**: instance property of [<code>JsdocOptions</code>](#module_jsdoc-api..JsdocOptions)  
+**Example**  
+```js
+{
+    name: 'contact',
+    fields: ['email'],
+    required: true,
+    validators: [/^(([0-9a-zA-Z])+([-._'+&]))*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/]
+}
+```
 > Generated by Klick DataService Doc builder
